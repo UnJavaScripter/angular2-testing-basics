@@ -1,13 +1,19 @@
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
+import { OtherComponent } from './other/other.component';
+import { DataService } from './data.service';
+import { HttpModule } from '@angular/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpModule],
       declarations: [
-        AppComponent
+        AppComponent,
+        OtherComponent
       ],
+      providers: [DataService]
     }).compileComponents();
   }));
 
@@ -29,4 +35,11 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('app works!');
   }));
+  
+  it('should return the sum of 5 and 7', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.sumNumbers(5, 7)).toEqual(12);
+  }));
+
 });
